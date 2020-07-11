@@ -8,11 +8,13 @@
    <div class="row">
       <div class="col-md-2">Filter by:</div>
       <div class="col-md-4">
+         <!-- Two way binding - use for input fields since we are displaying back on template (refer below)-->
          <input [(ngModel)]="filteredBy" type="text" />
       </div>
    </div>
    <div class="row">
       <div class="col-md-2">
+         <!-- Input field - after 2 way binding takes effect, comes back to template-->
          <h4>Filtered by: {{ filteredBy }}</h4>
       </div>
    </div>
@@ -23,6 +25,7 @@
       <thead>
          <tr>
             <th>
+               <!--Event binding as soon as button is called - method is called-->
                <button class="btn btn-primary" (click)="toggleImage()">
                   {{ showImage ? 'Hide' : 'Show' }} Image
                </button>
@@ -37,6 +40,8 @@
       <tbody>
          <tr *ngFor="let product of filteredProducts">
             <td>
+               <!-- Property binding - src, title-->
+               <!-- Using ngIf on showImage to see if img tag has to be rendered or not-->
                <img
                   *ngIf="showImage"
                   [src]="product.imageUrl"
@@ -46,6 +51,7 @@
                />
             </td>
             <td>{{ product.productName }}</td>
+            <!-- Custom pipe with pipe paramters, can use multiple pipes-->
             <td>{{ product.productCode | lowercase | ConvertToSpaces: '-' }}</td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency: 'USD':'symbol':'1.2-2' }}</td>

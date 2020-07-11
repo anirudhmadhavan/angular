@@ -3,6 +3,7 @@ import { Product } from './product';
 import { FileDetector } from 'protractor';
 
 @Component({
+   //This is the directive which can be used as a HTML tag <pm-products> - displays template associated with current template
    selector: 'pm-products',
    //Linked template
    templateUrl: './product-list.component.html',
@@ -11,10 +12,12 @@ import { FileDetector } from 'protractor';
 })
 export class ProductListComponent implements OnInit {
    ngOnInit(): void {
+      //Called before view is initialized as soon as component is created
       console.log('OnInit');
    }
 
    constructor() {
+      //Initially, all products are displayed without any filter
       this.filteredProducts = this.products;
       this.filteredBy = '';
    }
@@ -24,6 +27,7 @@ export class ProductListComponent implements OnInit {
    imageMargin: number = 2;
    showImage: boolean = false;
 
+   //Backing variable for filteredBy getter and setter
    _filteredBy: string = '';
 
    products: Product[] = [
@@ -80,11 +84,12 @@ export class ProductListComponent implements OnInit {
    ];
    filteredProducts: Product[];
 
+   //This is used to maintain whether we show or hide image in ngIf field of img tag
    toggleImage(): void {
       this.showImage = !this.showImage;
    }
 
-   //This is called by the Filtered By text field in html to display
+   //This is called by the Filtered By text field in template to display
    get filteredBy() {
       return this._filteredBy;
    }
@@ -92,8 +97,10 @@ export class ProductListComponent implements OnInit {
    //This is called when user changes input and two way binding takes effect
    set filteredBy(filteredBy: string) {
       this._filteredBy = this.filteredBy;
+      //Setting it here so that it is displayed on template
       this.filteredProducts = this.products.filter(
          (product) =>
+            //Check if filteredBy exists anywhere is product name
             product.productName.toLocaleLowerCase().indexOf(filteredBy.toLocaleLowerCase()) !== -1
       );
    }

@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+//Custom pipe - remember to registered in module which uses pipe
 @Pipe({
    name: 'ConvertToSpaces',
 })
