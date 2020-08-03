@@ -55,7 +55,10 @@
             <td>{{ product.productCode | lowercase | ConvertToSpaces: '-' }}</td>
             <td>{{ product.releaseDate }}</td>
             <td>{{ product.price | currency: 'USD':'symbol':'1.2-2' }}</td>
-            <td>{{ product.starRating }}</td>
+            <td>
+               <!-- Nested star component, passing property rating and listening to event, $event is payload from child's event-->
+               <star [rating]="product.starRating" (childEvent)="childEvent($event)"></star>
+            </td>
          </tr>
       </tbody>
    </table>

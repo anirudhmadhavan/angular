@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
-import { FileDetector } from 'protractor';
 
 @Component({
    //This is the directive which can be used as a HTML tag <pm-products> - displays template associated with current template
@@ -103,5 +102,9 @@ export class ProductListComponent implements OnInit {
             //Check if filteredBy exists anywhere is product name
             product.productName.toLocaleLowerCase().indexOf(filteredBy.toLocaleLowerCase()) !== -1
       );
+   }
+
+   public childEvent(text: string) {
+      console.log(text);
    }
 }
