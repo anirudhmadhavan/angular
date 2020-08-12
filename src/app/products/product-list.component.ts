@@ -52,15 +52,22 @@ export class ProductListComponent implements OnInit {
       return this._filteredBy;
    }
 
-   //This is called when user changes input and two way binding takes effect
+   // This is called when user changes input and two way binding takes effect
+   // This is called initially, when view is created
+   // At that time, products will not be available, so need to have the initial check to disable filtering if filteredBy is empty
    set filteredBy(filteredBy: string) {
-      this._filteredBy = this.filteredBy;
+      this._filteredBy = filteredBy;
       //Setting it here so that it is displayed on template
-      this.filteredProducts = this.products.filter(
-         (product) =>
-            //Check if filteredBy exists anywhere is product name
-            product.productName.toLocaleLowerCase().indexOf(filteredBy.toLocaleLowerCase()) !== -1
-      );
+      this.filteredProducts =
+         this.filteredBy && this.filteredBy.trim().length > 0
+            ? this.products.filter(
+                 (product) =>
+                    //Check if filteredBy exists anywhere is product name
+                    product.productName
+                       .toLocaleLowerCase()
+                       .indexOf(filteredBy.toLocaleLowerCase()) !== -1
+              )
+            : this.products;
    }
 
    public childEvent(text: string) {
