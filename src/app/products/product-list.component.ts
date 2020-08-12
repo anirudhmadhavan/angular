@@ -14,8 +14,17 @@ export class ProductListComponent implements OnInit {
    ngOnInit(): void {
       //Called before view is initialized as soon as component is created
       console.log('OnInit');
-      this.products = this.productService.getData();
-      this.filteredProducts = this.products;
+
+      // Using injected service to make HTTP calls - subsribing to the observable
+      // Next fn - applied to every 'future' data in observable
+      // Error fn - applied when observable returns error - catchError in product service wraps it up for us
+      this.productService.getData().subscribe({
+         next: (response) => {
+            this.products = response;
+            this.filteredProducts = this.products;
+         },
+         error: (err) => console.log(err),
+      });
    }
 
    constructor(private productService: ProductService) {
