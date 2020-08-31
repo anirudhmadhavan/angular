@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
 import { ProductDetailComponent } from './products/product-detail.component';
+import { ProductDetailGuard } from './products/product-detail.guard';
 //BrowserModule - always import for apps run on browser - ngIf, ngFor
 //Declarations - components and pipes part of this Angular module
 //bootstrap - first component to be executed, whatever is used in index.html
@@ -37,7 +38,12 @@ import { ProductDetailComponent } from './products/product-detail.component';
       // pathMatch - use when we redirectTo
       RouterModule.forRoot([
          { path: 'products', component: ProductListComponent },
-         { path: 'product/:id', component: ProductDetailComponent },
+         // Adding guard to prevent illegal ID access - use guards to authenticate route - think of it as action to take before going to route
+         {
+            path: 'product/:id',
+            canActivate: [ProductDetailGuard],
+            component: ProductDetailComponent,
+         },
          { path: 'welcome', component: WelcomeComponent },
          { path: '', redirectTo: 'welcome', pathMatch: 'full' },
          { path: '**', redirectTo: 'welcome', pathMatch: 'full' },

@@ -50,7 +50,10 @@
                   [style.margin.px]="imageMargin"
                />
             </td>
-            <td>{{ product.productName }}</td>
+            <!--Using routerLink to route to product detail page, passing product ID to the routed component-->
+            <td>
+               <a [routerLink]="['/product', product.productId]">{{ product.productName }}</a>
+            </td>
             <!-- Custom pipe with pipe paramters, can use multiple pipes-->
             <td>{{ product.productCode | lowercase | ConvertToSpaces: '-' }}</td>
             <td>{{ product.releaseDate }}</td>
